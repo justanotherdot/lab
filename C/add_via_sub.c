@@ -14,7 +14,7 @@ main(void)
   printf("signed: %d\n", x0 - (-y0));
   printf("unsigned: %d\n", x1 - (-y1));
 
-  // $ clang -Wall -Werror add_via_sub.c -o add_via_sub && ./add_via_sub
+  // $ clang -Wall -Werror add_via_sub.c -o dist/add_via_sub && ./add_via_sub
   // Addition via double subtraction
   // signed: 16
   // unsigned: 16
