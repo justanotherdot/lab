@@ -1,0 +1,13 @@
+{
+  "name": "flow_implicit_any",
+  "version": "1.0.0",
+  "description": "Implicit any checks with Flow",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.71.0",
+    "flow-coverage-report": "^0.5.0"
+  }
+}

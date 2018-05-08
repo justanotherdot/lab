@@ -1,0 +1,36 @@
+Arguments: 
+  /Users/rjs/.nvm/versions/node/v9.10.1/bin/node /usr/local/Cellar/yarn/1.6.0/libexec/bin/yarn.js init
+
+PATH: 
+  /Users/rjs/.nvm/versions/node/v9.10.1/bin:/Users/rjs/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/rjs/.cabal/bin:/Users/rjs/.cargo/bin:/Users/rjs/.local/bin:/Users/rjs/.npm-global/bin:/Users/rjs/.npm-global/node/bin:/Users/rjs/bin:/Users/rjs/go/bin:/Users/rjs/scripts:/usr/local/go/bin:/Users/rjs/haskell/ghc-current/bin:/Users/rjs/.mafia/versions:/Users/rjs/.cache/rebar3/bin:/Users/rjs/.fzf/bin
+
+Yarn version: 
+  1.6.0
+
+Node version: 
+  9.10.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (/usr/local/Cellar/yarn/1.6.0/libexec/lib/cli.js:129516:13)
+      at Interface.emit (events.js:180:13)
+      at Interface._ttyWrite (readline.js:783:16)
+      at ReadStream.onkeypress (readline.js:163:10)
+      at ReadStream.emit (events.js:180:13)
+      at emitKeys (internal/readline.js:422:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1019:36)
+      at ReadStream.emit (events.js:180:13)
+      at addChunk (_stream_readable.js:274:12)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
