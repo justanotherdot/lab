@@ -1,5 +1,12 @@
 #ifndef UTF8_PARSER_H
 
+#include <stdlib.h>
+
+// N.B.
+// This is a bunch of machinery to convert a regular, byte-packed string into
+// an internal format slightly 'easier' to print. But theoretically this is bs
+// and the bloat can be left for another day.
+
 typedef struct utf8_code_point_t {
   long num_bytes;
   char bytes[];
@@ -37,6 +44,23 @@ UTF8ParseResult utf8_parse_result_result(UTF8ParseResult parse_result);
 UTF8ParseResult utf8_parse_result_err(char* str);
 
 // random.
+
+void analyse_bytes_of_str(char* str, size_t len);
+
+void maybe_print_locale_present();
+
 void print_byte(char c);
+
+bool is_ascii(char c);
+
+bool is_cont(char c);
+
+int num_bytes_follow(char c);
+
+char bit_at(size_t pos, int n);
+
+bool bit_set_at(size_t pos, int number);
+
+bool is_printable(char c);
 
 #endif
