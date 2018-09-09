@@ -54,27 +54,24 @@ void print_utf8_str(char* str, size_t len)
       printf("%c", str[i]);
     } else {
       int num_extra_bytes = num_bytes_follow(str[i]);
-      wint_t wide_char = 0;
+      wchar_t wide_char = 0;
 
       // FIXME This could easily blow up if we have a byte that
       // says there is more to follow but not actually have anything else there!
       if (num_extra_bytes == 1) {
         wide_char = str[i] | str[i+1] << 8;
       } else if (num_extra_bytes == 2) {
-        wide_char = str[i] | str[i+1] << 8 | str[i+2] << 16;
+        /*wide_char = (unsigned char)str[i] << 16 | (unsigned char)str[i+1] << 8 | (unsigned char)str[i+2];*/
+        char* src = malloc(3+1);
+        src[0] = str[i];
+        src[1] = str[i+1];
+        src[2] = str[i+2];
+        src[3] = '\0';
 
-        print_int(str[i+1] << 8UL);
+        wchar_t* dest = malloc(sizeof(wchar_t) * 3+1);
+        mbstowcs(dest, src, 3+1);
+        printf("'%ls'\n", dest);
 
-        printf("\n");
-        printf("Printing bare patterns...\n");
-        printf("\n"); print_byte(str[i]);
-        printf("\n"); print_byte(str[i+1]);
-        printf("\n");
-
-        print_int(wide_char);
-        printf("\n");
-        printf("%lc", (wint_t)wide_char);
-        printf("Done.\n");
       } else if (num_extra_bytes == 3) {
         wide_char = str[i] | str[i+1] << 8 | str[i+2] << 16 | str[i+3] << 24;
       } else {
@@ -82,7 +79,7 @@ void print_utf8_str(char* str, size_t len)
         exit(1);
       }
 
-      printf("%lc\n", (wint_t)wide_char);
+      printf("%lc\n", wide_char);
 
       i+=num_extra_bytes;
     }
@@ -91,6 +88,28 @@ void print_utf8_str(char* str, size_t len)
       /*[>fprintf(stderr, "         This means the string is probably mangled.\n");<]*/
     /*}*/
   }
+}
+
+// All unicode 'continuation' bytes will be 'signed'. This function is a
+// utility for this module to do an unsigned (and therefore defind) left shift
+// and then shift the leftmost bit back.
+// TODO This could be generalised to left shift 'safely' for both signed and
+// unsgined ints.
+unsigned int shift_unicode_continuation(unsigned char n, size_t amt)
+{
+  unsigned int rv = 0;
+
+  // clear bit.
+  /*unsigned int n1 = n & ~(1UL << 7);*/
+  unsigned int n1 = n;
+
+  print_int(n);
+  printf("\n");
+  print_int(n1);
+
+  rv |= n1 << amt;
+
+  return rv;
 }
 
 // FIXME This currently pads the number of bytes by 3, but it could be more.

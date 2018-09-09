@@ -47,6 +47,8 @@ UTF8ParseResult utf8_parse_result_err(char* str);
 
 void print_utf8_str(char* str, size_t len);
 
+unsigned int shift_unicode_continuation(unsigned char n, size_t amt);
+
 void analyse_bytes_of_str(char* str, size_t len);
 
 void maybe_print_locale_present();
