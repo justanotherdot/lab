@@ -48,38 +48,39 @@ int run_utf8_parser(int argc, char** argv) {
 //TODO void print_utf8_str_ln(char* str, size_t len)
 void print_utf8_str(char* str, size_t len)
 {
+  char src[5];
   size_t i;
   for (i = 0; i < len; ++i) {
     if (is_ascii(str[i]) && isprint(str[i])) {
       printf("%c", str[i]);
     } else {
       int num_extra_bytes = num_bytes_follow(str[i]);
-      wchar_t wide_char = 0;
-
       // FIXME This could easily blow up if we have a byte that
       // says there is more to follow but not actually have anything else there!
       if (num_extra_bytes == 1) {
-        wide_char = str[i] | str[i+1] << 8;
+        src[0] = str[i];
+        src[1] = str[i+2];
+        src[2] = '\0';
       } else if (num_extra_bytes == 2) {
+        // N.B. For posterity,
+        // this was originally how I was trying to craft a wchar_t 'by hand'.
         /*wide_char = (unsigned char)str[i] << 16 | (unsigned char)str[i+1] << 8 | (unsigned char)str[i+2];*/
-        char* src = malloc(3+1);
         src[0] = str[i];
         src[1] = str[i+1];
         src[2] = str[i+2];
         src[3] = '\0';
-
-        wchar_t* dest = malloc(sizeof(wchar_t) * 3+1);
-        mbstowcs(dest, src, 3+1);
-        printf("'%ls'\n", dest);
-
       } else if (num_extra_bytes == 3) {
-        wide_char = str[i] | str[i+1] << 8 | str[i+2] << 16 | str[i+3] << 24;
+        src[0] = str[i];
+        src[1] = str[i+1];
+        src[2] = str[i+2];
+        src[3] = str[i+3];
+        src[4] = '\0';
       } else {
         fprintf(stderr, "ERROR: Invalid character found at position %ld", (long)i);
         exit(1);
       }
 
-      printf("%lc\n", wide_char);
+      printf("%s", src);
 
       i+=num_extra_bytes;
     }
