@@ -1,0 +1,6 @@
+[package]
+name = "cycle_and_fuse"
+version = "0.1.0"
+authors = ["Ryan James Spencer <spencer.ryanjames@gmail.com>"]
+
+[dependencies]
