@@ -1,0 +1,18 @@
+[package]
+name = "serde-byte-test"
+version = "0.1.0"
+authors = ["Ryan James Spencer <spencer.ryanjames@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+csv = "*"
+structopt = "*"
+dhat = "*"
+crossbeam = "*"
+parking_lot = "*"
+#assert_no_alloc = "*"
+
+[profile.release]
+debug = true
+lto = "fat" # or "fat"
+#panic = "abort"
